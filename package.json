@@ -1,0 +1,28 @@
+{
+  "name": "k6-zap-perfsec-automation",
+  "version": "1.0.0",
+  "description": "Performance and security testing using k6 and OWASP ZAP",
+  "main": "index.js",
+  "scripts": {
+    "k6:run": "k6 run tests/performance/load-test.js",
+    "k6:run:smoke": "k6 run tests/performance/smoke-test.js",
+    "k6:run:stress": "k6 run tests/performance/stress-test.js",
+    "zap:baseline": "docker run -v $(pwd):/zap/wrk/:rw -t zaproxy/zap-stable zap-baseline.py -t https://example.com -r zap-report.html",
+    "zap:full-scan": "docker run -v $(pwd):/zap/wrk/:rw -t zaproxy/zap-stable zap-full-scan.py -t https://example.com -r zap-report.html"
+  },
+  "keywords": [
+    "k6",
+    "performance-testing",
+    "security-testing",
+    "zap",
+    "owasp"
+  ],
+  "author": "",
+  "license": "ISC",
+  "engines": {
+    "node": "20.x"
+  },
+  "devDependencies": {
+    "@types/k6": "^0.52.0"
+  }
+}

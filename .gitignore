@@ -1,0 +1,8 @@
+node_modules/
+zap-report.html
+zap-report.xml
+zap-report.json
+*.log
+.DS_Store
+.env
+results/
