@@ -1,6 +1,6 @@
 # k6 + OWASP ZAP Performance & Security Testing Framework
 
-[![CI](https://github.com/yourusername/k6-zap-perfsec-automation/actions/workflows/ci.yml/badge.svg)](https://github.com/yourusername/k6-zap-perfsec-automation/actions/workflows/ci.yml)
+[![CI](https://github.com/jptrp/k6-zap-perfsec-automation/actions/workflows/ci.yml/badge.svg)](https://github.com/jptrp/k6-zap-perfsec-automation/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 > **Production-ready Performance + Security testing suite combining k6 load testing with OWASP ZAP vulnerability scanning**
