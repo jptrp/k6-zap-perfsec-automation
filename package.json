@@ -1,28 +1,50 @@
 {
   "name": "k6-zap-perfsec-automation",
   "version": "1.0.0",
-  "description": "Performance and security testing using k6 and OWASP ZAP",
+  "description": "Production-ready Performance (k6) + Security (OWASP ZAP) Testing Framework",
   "main": "index.js",
   "scripts": {
-    "k6:run": "k6 run tests/performance/load-test.js",
-    "k6:run:smoke": "k6 run tests/performance/smoke-test.js",
-    "k6:run:stress": "k6 run tests/performance/stress-test.js",
-    "zap:baseline": "docker run -v $(pwd):/zap/wrk/:rw -t zaproxy/zap-stable zap-baseline.py -t https://example.com -r zap-report.html",
-    "zap:full-scan": "docker run -v $(pwd):/zap/wrk/:rw -t zaproxy/zap-stable zap-full-scan.py -t https://example.com -r zap-report.html"
+    "k6:smoke": "docker run --rm -i grafana/k6 run - < k6/smoke.js",
+    "k6:load": "docker run --rm -i grafana/k6 run --out json=k6-load-results.json - < k6/load.js",
+    "k6:stress": "docker run --rm -i grafana/k6 run --out json=k6-stress-results.json - < k6/stress.js",
+    "k6:all": "npm run k6:smoke && npm run k6:load && npm run k6:stress",
+    "zap:scan": "docker run --rm -v $(pwd):/zap/wrk:rw -t zaproxy/zap-stable zap-baseline.py -t https://testphp.vulnweb.com -r zap-report.html -c zap/zap-baseline.conf",
+    "zap:scan-quick": "docker run --rm -v $(pwd):/zap/wrk:rw -t zaproxy/zap-stable zap-baseline.py -t https://testphp.vulnweb.com -r zap-report.html -m 2",
+    "test:perf": "npm run k6:all",
+    "test:sec": "npm run zap:scan",
+    "test:all": "npm run k6:all && npm run zap:scan",
+    "docker:pull": "docker pull grafana/k6 && docker pull zaproxy/zap-stable",
+    "clean": "rm -f k6-*.json zap-report.html",
+    "help": "echo 'Available commands:\n  k6:smoke       - Quick API health check (30s)\n  k6:load        - Realistic load test (6m)\n  k6:stress      - Find breaking points (10m)\n  k6:all         - Run all k6 tests\n  zap:scan       - Security vulnerability scan (2-5m)\n  zap:scan-quick - Quick ZAP scan (2m max)\n  test:perf      - Run performance tests\n  test:sec       - Run security tests\n  test:all       - Run ALL tests (perf + sec)\n  docker:pull    - Download latest k6 and ZAP images\n  clean          - Remove generated test reports'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yourusername/k6-zap-perfsec-automation.git"
   },
   "keywords": [
     "k6",
+    "owasp-zap",
     "performance-testing",
     "security-testing",
-    "zap",
-    "owasp"
+    "load-testing",
+    "stress-testing",
+    "vulnerability-scanning",
+    "ci-cd",
+    "docker",
+    "automation"
   ],
-  "author": "",
-  "license": "ISC",
+  "author": "Your Name",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/yourusername/k6-zap-perfsec-automation/issues"
+  },
+  "homepage": "https://github.com/yourusername/k6-zap-perfsec-automation#readme",
   "engines": {
-    "node": "20.x"
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
   },
   "devDependencies": {
     "@types/k6": "^0.52.0"
-  }
+  },
+  "dependencies": {}
 }
